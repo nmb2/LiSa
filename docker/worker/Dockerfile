@@ -1,4 +1,4 @@
-FROM python:slim
+FROM python:3.6-slim
 
 ARG maxmind_key
 
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     patch \
     git \
- #   qemu \
+    qemu \
     qemu-system \
     openvpn \
     binutils \
@@ -17,11 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     tar \
     e2tools \
-    python3-pip \
-    nano
-RUN git clone https://github.com/radare/radare2 
-RUN radare2/sys/install.sh 
-RUN useradd -m lisa \
+    && git clone https://github.com/radare/radare2 \
+    && radare2/sys/install.sh \
+    && useradd -m lisa \
     && echo "Downloading LiSa Linux images ..." \
     && wget https://github.com/danieluhricek/linux-images/archive/v1.0.1.tar.gz -q -O - | tar xz -C /home/lisa \
     && mv /home/lisa/linux-images-1.0.1 /home/lisa/images
@@ -34,8 +32,9 @@ COPY --chown=lisa:lisa ./requirements.txt /home/lisa/requirements.txt
 ENV PYTHONPATH /home/lisa
 
 WORKDIR /home/lisa
-RUN pip install wheel setuptools pip --upgrade
-RUN pip install -r requirements.txt \
+
+RUN /usr/local/bin/python -m pip install --upgrade pip \
+    && pip install -r requirements.txt \
     && iprange -j data/blacklists/* > data/ipblacklist \
     && ./docker/worker/maxmind.sh $maxmind_key \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
