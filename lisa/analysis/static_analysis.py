@@ -45,7 +45,7 @@ class StaticAnalyzer(AbstractSubAnalyzer):
         """Basic binary information from r2 tool."""
         info = self._r2.cmdj('ij')
         entry_point = self._r2.cmdj('iej')
-
+        print('info: '+ str(info))
         info_select = {
             'arch': info['bin']['arch'],
             'endianess': info['bin']['endian'],
@@ -59,8 +59,8 @@ class StaticAnalyzer(AbstractSubAnalyzer):
             'language': info['bin']['lang'],
             'stripped': info['bin']['stripped'],
             'relocations': info['bin']['relocs'],
-            'min_opsize': info['bin']['minopsz'],
-            'max_opsize': info['bin']['maxopsz'],
+ #           'min_opsize': info['bin']['minopsz'],
+      #      'max_opsize': info['bin']['maxopsz'],
             'entry_point': entry_point[0]['vaddr']
         }
 

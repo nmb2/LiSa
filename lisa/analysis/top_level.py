@@ -59,7 +59,7 @@ class Master():
 
     def run(self):
         """Top level run function."""
-        log.info('Starting full analysis.')
+        print('Starting full analysis.')
 
         # metadata
         self._file.output['analysis_start_time'] = datetime.now().strftime(
@@ -67,5 +67,6 @@ class Master():
 
         for analyzer in self._analyzers:
             sub_output = analyzer.run_analysis()
+            print('sub_output' + str(sub_output))
             _, analysis_name = analyzer.__module__.rsplit('.', 1)
             self._file.output[analysis_name] = sub_output

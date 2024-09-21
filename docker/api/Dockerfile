@@ -1,4 +1,4 @@
-FROM python:3.6-slim
+FROM python:slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
@@ -15,7 +15,7 @@ ENV PYTHONPATH /home/lisa
 ENV FLASK_APP /home/lisa/lisa/web_api/app.py
 
 WORKDIR /home/lisa
-
+RUN pip install wheel setuptools pip --upgrade
 RUN pip install -r requirements.txt \
     && touch data/ipblacklist \
     && touch data/geolite2databases/GeoLite2-ASN.mmdb \

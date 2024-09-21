@@ -13,7 +13,7 @@ services:
       - worker
     networks:
       lisanet:
-        ipv4_address: 172.42.0.10
+        ipv4_address: 172.42.0.101
     restart: on-failure
 
   worker:
