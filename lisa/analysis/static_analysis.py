@@ -27,7 +27,7 @@ class StaticAnalyzer(AbstractSubAnalyzer):
         log.info('Static Analysis started.')
 
         # start radare2
-        self._r2 = r2pipe.open(self._file.path, ['-2'])
+        self._r2 = r2pipe.open(self._file.path)
         self._r2.cmd('aaa')
 
         # binary info

@@ -12,3 +12,4 @@ pymysql
 uwsgi
 pytest
 pytest-cov
+yara-python>=4.0.4
